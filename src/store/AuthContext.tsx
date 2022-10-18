@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 interface AuthContextInterface {
   token: string;
@@ -21,6 +21,14 @@ type Props = {
 export const AuthProvider = ({ children }: Props) => {
   const [token, setToken] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const initialToken = localStorage.getItem('token');
+    if (initialToken) {
+      setToken(initialToken);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const loginHandler = (token: string) => {
     setToken(token);
