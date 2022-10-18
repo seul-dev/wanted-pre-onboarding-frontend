@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
   font-style: normal;
 }
 :root {
-  --white : ffffff;
+  --white : #ffffff;
   --blue: #284b63;
   --gray: #d9d9d9;
   --green : #3c6e71;
