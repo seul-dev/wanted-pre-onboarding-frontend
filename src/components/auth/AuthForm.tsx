@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../common/Button';
+import { AuthContext } from '../../store/AuthContext';
 
 const AuthForm = () => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [loginMode, setLoginMode] = useState(true);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [formData, setFormData] = useState({
@@ -52,9 +57,23 @@ const AuthForm = () => {
     }
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // post
+    let url = process.env.REACT_APP_API_URL;
+    url += loginMode ? '/auth/signin' : '/auth/signup';
+
+    try {
+      const { data } = await axios.post(url, formData);
+      if (data.access_token) {
+        login(data.access_token);
+        navigate('/todo');
+      }
+    } catch (error: any) {
+      if (error.response?.data.statusCode) {
+        alert(error.response.data.message);
+      }
+    }
   };
 
   return (
