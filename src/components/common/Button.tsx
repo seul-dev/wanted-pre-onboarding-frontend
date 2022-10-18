@@ -15,8 +15,10 @@ const DISABLED = css`
   }
 `;
 const FULLWIDTH = css`
-  width: 100%;
+  width: 50%;
+  font-size: 1.1rem;
   justify-content: center;
+  margin-top: 1rem;
 `;
 
 const ButtonWrapper = styled.button<ButtonProps>`
@@ -26,7 +28,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
   border-radius: 5px;
   background-color: var(--green);
   color: var(--white);
-  padding: 0.5rem 1.5rem;
+  padding: 0.7rem 1.5rem 0.5rem 1.5rem;
 
   &:hover {
     transform: scale(0.98);

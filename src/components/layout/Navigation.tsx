@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const Navigation = () => {
   return (
     <Wrapper>
-      <h1>Note App</h1>
+      <h1>Todo App</h1>
       <Link to='/'>
         <Button type='button' disabled={false}>
           로그인
