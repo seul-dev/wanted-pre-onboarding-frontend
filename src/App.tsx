@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Auth from './pages/Auth';
 import Todo from './pages/Todo';
 import Layout from './components/layout/Layout';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Auth />} />
           <Route path='/todo' element={<Todo />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Layout>
     </>
