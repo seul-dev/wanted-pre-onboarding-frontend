@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode;
   disabled: boolean;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   fullWith?: boolean;
 }
 const DISABLED = css`
@@ -38,9 +39,20 @@ const ButtonWrapper = styled.button<ButtonProps>`
   ${(props) => props.fullWith && FULLWIDTH}
 `;
 
-const Button = ({ children, disabled, type, fullWith }: ButtonProps) => {
+const Button = ({
+  children,
+  disabled,
+  type,
+  fullWith,
+  onClick,
+}: ButtonProps) => {
   return (
-    <ButtonWrapper type={type} disabled={disabled} fullWith={fullWith}>
+    <ButtonWrapper
+      type={type}
+      disabled={disabled}
+      fullWith={fullWith}
+      onClick={onClick}
+    >
       {children}
     </ButtonWrapper>
   );

@@ -1,17 +1,22 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import { AuthContext } from '../../store/AuthContext';
 
 const Navigation = () => {
+  const navigate = useNavigate();
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <Wrapper>
       <Logo to='/'>Todo App</Logo>
       {isLoggedIn && (
-        <Button type='button' disabled={false} onClick={logout}>
+        <Button type='button' disabled={false} onClick={handleLogout}>
           로그아웃
         </Button>
       )}
