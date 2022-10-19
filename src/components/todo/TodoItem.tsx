@@ -35,6 +35,11 @@ const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
       )
       .then(({ data }) => {
         setIsCompleted((prev) => !prev);
+        setTodos((prev) =>
+          prev.map((el) => {
+            return el.id === data.id ? data : el;
+          })
+        );
       });
   };
 

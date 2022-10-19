@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, useContext, useCallback } from 'react';
+import styled from 'styled-components';
 import TodoForm from '../components/todo/TodoForm';
 import TodoItem from '../components/todo/TodoItem';
 import { AuthContext } from '../store/AuthContext';
@@ -26,8 +27,7 @@ const Todo = () => {
             },
           }
         );
-        console.log(data);
-        setTodos(data);
+        setTodos(data.sort((a: TodoResponse, b: TodoResponse) => b.id - a.id));
       } catch (error: any) {
         if (error.response?.data.statusCode) {
           alert(error.response.data.message);
@@ -40,6 +40,10 @@ const Todo = () => {
   return (
     <>
       <TodoForm setTodos={setTodos} />
+      <TodoStatus>
+        <p>Total: {todos.length}</p>
+        <p>Done: {todos.filter((todo) => todo.isCompleted).length}</p>
+      </TodoStatus>
       {todos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />
       ))}
@@ -48,3 +52,13 @@ const Todo = () => {
 };
 
 export default Todo;
+
+const TodoStatus = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  p {
+    margin-right: 2rem;
+  }
+`;

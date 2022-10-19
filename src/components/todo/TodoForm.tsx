@@ -44,7 +44,7 @@ const TodoForm = ({ setTodos }: TodoFormProps) => {
         }
       )
       .then(({ data }) => {
-        setTodos((prev) => [...prev, data]);
+        setTodos((prev) => [data, ...prev]);
         setText('');
       });
   };
@@ -56,7 +56,7 @@ const TodoForm = ({ setTodos }: TodoFormProps) => {
           <CustomInput
             value={text}
             onChange={handleChange}
-            placeholder='할 일을 추가해보세요'
+            placeholder='Add to do'
           />
           <ButtonContainer>
             <Button
