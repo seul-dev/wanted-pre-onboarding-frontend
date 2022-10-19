@@ -16,7 +16,12 @@ const Navigation = () => {
     <Wrapper>
       <Logo to='/'>Todo App</Logo>
       {isLoggedIn && (
-        <Button type='button' disabled={false} onClick={handleLogout}>
+        <Button
+          type='button'
+          size='medium'
+          color='green'
+          onClick={handleLogout}
+        >
           로그아웃
         </Button>
       )}

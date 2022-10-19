@@ -6,12 +6,6 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Wrapper = styled.div`
-  margin: 3rem auto;
-  width: 90%;
-  max-width: 40rem;
-`;
-
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
@@ -23,3 +17,9 @@ const Layout = ({ children }: LayoutProps) => {
 };
 
 export default Layout;
+
+const Wrapper = styled.div`
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 40rem;
+`;

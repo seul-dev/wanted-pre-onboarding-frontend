@@ -6,12 +6,16 @@ const NotFound = () => {
   return (
     <>
       <div>Page not found!</div>
-      <Button onClick={() => navigate(-1)} type='button' disabled={false}>
+      <Button
+        onClick={() => navigate(-1)}
+        type='button'
+        size='medium'
+        color='outlineGreen'
+      >
         돌아가기
       </Button>
     </>
   );
-  //back to home 버튼
 };
 
 export default NotFound;

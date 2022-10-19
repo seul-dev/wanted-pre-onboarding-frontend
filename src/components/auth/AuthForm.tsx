@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import { AuthContext } from '../../store/AuthContext';
 
 const AuthForm = () => {
   const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [loginMode, setLoginMode] = useState(true);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [formData, setFormData] = useState({
@@ -67,7 +65,6 @@ const AuthForm = () => {
       const { data } = await axios.post(url, formData);
       if (data.access_token) {
         login(data.access_token);
-        navigate('/todo');
       }
     } catch (error: any) {
       if (error.response?.data.statusCode) {
@@ -80,7 +77,7 @@ const AuthForm = () => {
     <Form onSubmit={handleSubmit}>
       <Title>{loginMode ? '로그인' : '회원가입'}</Title>
 
-      <Label>email</Label>
+      <Label>이메일</Label>
       <Input
         type='text'
         placeholder='email'
@@ -89,7 +86,7 @@ const AuthForm = () => {
         onChange={handleInputChange}
       />
       <ErrorMsg>{validationText.emailText}</ErrorMsg>
-      <Label>password</Label>
+      <Label>비밀번호</Label>
       <Input
         type='password'
         placeholder='password'
@@ -98,12 +95,12 @@ const AuthForm = () => {
         onChange={handleInputChange}
       />
       <ErrorMsg>{validationText.passwordText}</ErrorMsg>
-      <Button type='submit' disabled={btnDisabled} fullWith={true}>
+      <Button type='submit' disabled={btnDisabled} color='green' size='large'>
         {loginMode ? '로그인' : '회원가입'}
       </Button>
 
       <SwitchMode onClick={switchLoginMode}>
-        {loginMode ? 'Create new account' : 'Login with existing account'}
+        {loginMode ? '새로운 계정으로 가입' : '이미 존재하는 계정으로 로그인'}
       </SwitchMode>
     </Form>
   );
@@ -135,12 +132,15 @@ const Label = styled.label`
   display: block;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   font-size: 1.2rem;
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 0.5rem 1.2rem;
   width: 100%;
   border: solid 1px var(--black);
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ErrorMsg = styled.p`
