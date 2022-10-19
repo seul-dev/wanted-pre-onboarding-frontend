@@ -39,7 +39,7 @@ const Todo = () => {
 
   return (
     <>
-      <TodoForm />
+      <TodoForm setTodos={setTodos} />
       {todos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />
       ))}

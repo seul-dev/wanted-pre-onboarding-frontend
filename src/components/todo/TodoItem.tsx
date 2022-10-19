@@ -75,7 +75,7 @@ const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
   };
 
   return (
-    <Card>
+    <Card item={true}>
       <ButtonContainer>
         {isCompleted ? (
           <BsCheckSquareFill onClick={handleComplete} />

@@ -1,11 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { SetStateAction, Dispatch } from 'react';
 import styled from 'styled-components';
+import { TodoResponse } from '../../pages/Todo';
 import { AuthContext } from '../../store/AuthContext';
 import { Input } from '../auth/AuthForm';
 import Button from '../common/Button';
 import Card from '../common/Card';
-const TodoForm = () => {
+
+interface TodoFormProps {
+  setTodos: Dispatch<SetStateAction<TodoResponse[]>>;
+}
+
+const TodoForm = ({ setTodos }: TodoFormProps) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const { token } = useContext(AuthContext);
@@ -23,10 +30,11 @@ const TodoForm = () => {
     setText(e.currentTarget.value);
   };
 
-  const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
+
+    axios
+      .post(
         process.env.REACT_APP_API_URL + '/todos',
         { todo: text },
         {
@@ -34,22 +42,22 @@ const TodoForm = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
-      if (response.status === 200) {
-        console.log(response.data);
-      }
-    } catch (error: any) {
-      if (error.response?.data.statusCode) {
-        alert(error.response.data.message);
-      }
-    }
+      )
+      .then(({ data }) => {
+        setTodos((prev) => [...prev, data]);
+        setText('');
+      });
   };
 
   return (
     <div>
       <Card>
         <Form onSubmit={handleCreate}>
-          <CustomInput value={text} onChange={handleChange} />
+          <CustomInput
+            value={text}
+            onChange={handleChange}
+            placeholder='할 일을 추가해보세요'
+          />
           <ButtonContainer>
             <Button
               type='submit'
