@@ -8,5 +8,3 @@ $ npm install
 $ npm start
 ```
 
-### 데모 영상
-![Kapture 2022-10-19 at 19 49 08](https://user-images.githubusercontent.com/96093996/196672699-91b8e668-2a07-489b-a665-85339bdff493.gif)
